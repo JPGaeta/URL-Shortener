@@ -1,0 +1,8 @@
+name: URL-Shortener Teddy
+description: URL-Shortener Teddy is a simple URL shortener.
+runs:
+  using: node20
+  main: dist/main.js
+branding:
+  icon: 'feed-rocket'
+  color: 'orange'
