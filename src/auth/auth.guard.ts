@@ -6,12 +6,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { extractTokenFromHeader } from 'src/utils/auth.utils';
-import { TJwtToken } from 'src/types/auth.types';
-
-interface teste extends ExecutionContext {
-  userId: string;
-}
+import { extractTokenFromHeader } from '../utils/auth.utils';
+import { TJwtToken } from '../types/auth.types';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
