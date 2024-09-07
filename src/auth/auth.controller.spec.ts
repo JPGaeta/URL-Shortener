@@ -24,6 +24,11 @@ describe('AuthController', () => {
     authService = module.get<AuthService>(AuthService);
   });
 
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+    expect(authService).toBeDefined();
+  });
+
   it('Should be return the JWT token when sign in sucessfully', async () => {
     const token = 'JWT_TOKEN';
     const signInDto = { email: 'test@test.com', password: 'password' };
