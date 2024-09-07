@@ -29,6 +29,8 @@
     "@nestjs/swagger": "^7.4.0",
     "@prisma/client": "^5.19.1",
     "bcrypt": "^5.1.1",
+    "husky": "^9.1.5",
+    "nanoid": "3.0.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "uuid": "^10.0.0"
@@ -52,6 +54,7 @@
     "jest": "^29.5.0",
     "prettier": "^3.0.0",
     "prisma": "^5.19.1",
+    "semantic-release": "^24.1.0",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
@@ -76,5 +79,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'pre-commit hook' && yarn format && git add -A"
+    }
   }
 }
