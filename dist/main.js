@@ -5,7 +5,7 @@ const app_module_1 = require("./app.module");
 const process_1 = require("process");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    await app.listen(process_1.env.PORT || 3000);
+    await app.listen(process_1.env.PORT);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
