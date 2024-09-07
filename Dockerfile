@@ -19,7 +19,6 @@ RUN npx prisma generate  \
 FROM node:20-alpine
 
 ENV NODE_ENV production
-
 USER node
 WORKDIR /home/node
 
@@ -28,5 +27,7 @@ COPY --from=builder --chown=node:node /home/node/yarn.lock ./
 COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
 COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
 COPY --from=builder --chown=node:node /home/node/prisma ./prisma
+
+EXPOSE 5000
 
 CMD npx prisma migrate deploy && node dist/main.js
