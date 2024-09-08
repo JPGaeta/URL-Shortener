@@ -94,17 +94,17 @@ Para clonar o repositório e rodar o projeto localmente, siga os passos abaixo:
 
 > **Obs:** Execute `yarn test` para rodar os testes unitários.
 
-# Como o projeto funciona
+## Como o projeto funciona
 
 Este projeto possui uma documentação completa das rotas disponíveis na URL "/docs". Esta documentação inclui todos os parâmetros, corpos de solicitação e autenticações necessárias para cada rota.
 
-## Uso Sem Autenticação
+### Uso Sem Autenticação
 
 1.  **Criação de Link Curto**: Utilize a rota de criação de link curto, passando a URL destino desejada. Você receberá a URL encurtada como retorno.
 
 2.  **Redirecionamento**: Insira a URL encurtada retornada em seu navegador preferido para ser redirecionado para a URL destino.
 
-## Uso Com Autenticação
+### Uso Com Autenticação
 
 1.  **Criação de Conta**: Utilize a rota de SignUp para criar sua conta.
 
@@ -120,7 +120,7 @@ Este projeto possui uma documentação completa das rotas disponíveis na URL "/
 
 7.  **Exclusão de Link**: Se precisar excluir um link curto, utilize a rota de exclusão.
 
-# Diferenciais do Projeto
+## Diferenciais do Projeto
 
 Este projeto possui uma série de características que o destacam:
 
