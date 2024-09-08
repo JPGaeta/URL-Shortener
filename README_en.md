@@ -1,5 +1,10 @@
 # URL-Shortener
 
+<p align="center">
+  <span>English</span> |
+  <a href="./README.md">Português Brasileiro</a>
+</p>
+
 This project is a robust and efficient API for shortening URLs. The API provides a fast and secure way to shorten long URLs, making them more manageable and shareable.
 
 <p align="center">
