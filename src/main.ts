@@ -10,9 +10,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('URL Shotener API')
-    .setDescription('A simple URL shortener API')
-    .setVersion('1.0')
+    .setTitle('URL Shortener API')
+    .setDescription('Robust and efficient API for shortening URLs.')
+    .setVersion('1.3')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
