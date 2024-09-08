@@ -70,9 +70,7 @@ export class LinksController {
       user?.userId ?? null,
     );
 
-    const responseURL = `${process.env.BASE_DOMAIN}/${linkCreated.url_short}`;
-
-    return apiResponse(HttpStatus.CREATED, { url: responseURL }, [
+    return apiResponse(HttpStatus.CREATED, linkCreated, [
       { message: 'URL created', property: 'url' },
     ]);
   }

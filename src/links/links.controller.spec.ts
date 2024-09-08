@@ -63,7 +63,10 @@ describe('LinksController', () => {
         },
       };
 
-      jest.spyOn(linksService, 'create').mockResolvedValue(link);
+      jest.spyOn(linksService, 'create').mockResolvedValue({
+        ...link,
+        url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+      });
       jest.spyOn(jwtService, 'verifyAsync').mockResolvedValue({ userId: '1' });
 
       expect(
@@ -71,7 +74,10 @@ describe('LinksController', () => {
       ).toEqual(
         apiResponse(
           201,
-          { url: `${process.env.BASE_DOMAIN}/${link.url_short}` },
+          {
+            ...link,
+            url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+          },
           [{ message: 'URL created', property: 'url' }],
         ),
       );
@@ -87,14 +93,20 @@ describe('LinksController', () => {
         headers: {},
       };
 
-      jest.spyOn(linksService, 'create').mockResolvedValue(link);
+      jest.spyOn(linksService, 'create').mockResolvedValue({
+        ...link,
+        url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+      });
 
       expect(
         await controller.create(mockRequest as Request, createLinkDto),
       ).toEqual(
         apiResponse(
           201,
-          { url: `${process.env.BASE_DOMAIN}/${link.url_short}` },
+          {
+            ...link,
+            url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+          },
           [{ message: 'URL created', property: 'url' }],
         ),
       );

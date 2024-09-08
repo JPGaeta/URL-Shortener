@@ -102,7 +102,10 @@ describe('LinksService', () => {
 
       jest.spyOn(prismaService.link, 'create').mockResolvedValue(link);
 
-      expect(await service.create(createLinkDto, user.id)).toEqual(link);
+      expect(await service.create(createLinkDto, user.id)).toEqual({
+        ...link,
+        url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+      });
     });
 
     it('Should create a link without a user', async () => {
@@ -122,7 +125,10 @@ describe('LinksService', () => {
 
       jest.spyOn(prismaService.link, 'create').mockResolvedValue(link);
 
-      expect(await service.create(createLinkDto, null)).toEqual(link);
+      expect(await service.create(createLinkDto, null)).toEqual({
+        ...link,
+        url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+      });
     });
   });
 
@@ -135,9 +141,10 @@ describe('LinksService', () => {
       jest.spyOn(prismaService.link, 'update').mockResolvedValue(link);
       jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(link);
 
-      expect(await service.update(link.id, user.id, updateLinkDto)).toEqual(
-        link,
-      );
+      expect(await service.update(link.id, user.id, updateLinkDto)).toEqual({
+        ...link,
+        url_short: `${process.env.BASE_DOMAIN}/${link.url_short}`,
+      });
     });
 
     it('Should throw an error if user is not the owner', async () => {

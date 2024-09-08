@@ -62,7 +62,7 @@ export class LinksService {
       });
     } while (hasLinkWithSameUrl);
 
-    return this.prismaService.link.create({
+    const createdLink = await this.prismaService.link.create({
       data: {
         id,
         url: createLinkDto.url,
@@ -70,6 +70,11 @@ export class LinksService {
         userId: userId,
       },
     });
+
+    return {
+      ...createdLink,
+      url_short: `${process.env.BASE_DOMAIN}/${createdLink.url_short}`,
+    };
   }
 
   async update(id: string, userId: string, updateLinkDto: UpdateLinkDto) {
@@ -86,7 +91,10 @@ export class LinksService {
       data: { url: updateLinkDto.url },
     });
 
-    return updatedLink;
+    return {
+      ...updatedLink,
+      url_short: `${process.env.BASE_DOMAIN}/${updatedLink.url_short}`,
+    };
   }
 
   async remove(id: string, userId: string): Promise<void> {
