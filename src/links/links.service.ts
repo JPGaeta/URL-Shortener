@@ -1,6 +1,6 @@
 import {
   Injectable,
-  UnauthorizedException,
+  ForbiddenException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
@@ -23,13 +23,13 @@ export class LinksService {
 
   async findOne(id: string): Promise<Link | null> {
     return await this.prismaService.link.findUnique({
-      where: { id },
+      where: { id, deletedAt: null },
     });
   }
 
   async findLinkByShortUrl(shortUrl: string): Promise<Link | null> {
     const link = await this.prismaService.link.findFirst({
-      where: { url_short: shortUrl },
+      where: { url_short: shortUrl, deletedAt: null },
     });
 
     if (!link) {
@@ -42,7 +42,7 @@ export class LinksService {
   async incrementLinkClicks(id: string) {
     await this.prismaService.link.update({
       data: { clicks: { increment: 1 } },
-      where: { id },
+      where: { id, deletedAt: null },
     });
     return;
   }
@@ -74,15 +74,15 @@ export class LinksService {
 
   async update(id: string, userId: string, updateLinkDto: UpdateLinkDto) {
     if (!(await this.isOwner(userId, id))) {
-      throw new UnauthorizedException();
+      throw new ForbiddenException();
     }
 
-    if (!this.findOne(id)) {
+    if (!(await this.findOne(id))) {
       throw new NotFoundException();
     }
 
     const updatedLink = await this.prismaService.link.update({
-      where: { id: id },
+      where: { id: id, deletedAt: null },
       data: { url: updateLinkDto.url },
     });
 
@@ -91,10 +91,10 @@ export class LinksService {
 
   async remove(id: string, userId: string): Promise<void> {
     if (!(await this.isOwner(userId, id))) {
-      throw new UnauthorizedException();
+      throw new ForbiddenException();
     }
 
-    if (!this.findOne(id)) {
+    if (!(await this.findOne(id))) {
       throw new NotFoundException();
     }
 
@@ -107,7 +107,9 @@ export class LinksService {
   }
 
   private async isOwner(userId: string, linkId: string) {
-    const link = await this.findOne(linkId);
-    return link.userId === userId;
+    const link = await this.prismaService.link.findFirst({
+      where: { id: linkId },
+    });
+    return link?.userId === userId;
   }
 }
