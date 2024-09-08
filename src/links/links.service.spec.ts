@@ -182,7 +182,9 @@ describe('LinksService', () => {
       jest.spyOn(prismaService.link, 'update').mockResolvedValue(link);
       jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(link);
 
-      expect(await service.remove(link.id, user.id)).toEqual(link);
+      await expect(service.remove(link.id, user.id)).resolves.toEqual(
+        undefined,
+      );
     });
 
     it('Should throw an error if user is not the owner', async () => {

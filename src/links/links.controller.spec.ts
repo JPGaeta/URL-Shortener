@@ -67,7 +67,7 @@ describe('LinksController', () => {
 
       expect(
         await controller.create(mockRequest as Request, createLinkDto),
-      ).toBe(`${process.env.BASE_DOMAIN}/${link.url_short}`);
+      ).toStrictEqual({ url: `${process.env.BASE_DOMAIN}/${link.url_short}` });
     });
 
     it('Should be return a new link without authentication', async () => {
@@ -84,7 +84,7 @@ describe('LinksController', () => {
 
       expect(
         await controller.create(mockRequest as Request, createLinkDto),
-      ).toBe(`${process.env.BASE_DOMAIN}/${link.url_short}`);
+      ).toStrictEqual({ url: `${process.env.BASE_DOMAIN}/${link.url_short}` });
     });
   });
 
@@ -117,7 +117,7 @@ describe('LinksController', () => {
       expect(
         await controller.update(
           mockRequestWithUser as any,
-          link.id,
+          { id: link.id },
           updateLinkDto,
         ),
       ).toEqual(link);
@@ -126,11 +126,14 @@ describe('LinksController', () => {
 
   describe('Remove', () => {
     it('Should remove a link', async () => {
-      jest.spyOn(linksService, 'remove').mockResolvedValue(link);
+      const spy = jest.spyOn(linksService, 'remove').mockResolvedValue();
 
-      expect(
-        await controller.remove(mockRequestWithUser as any, link.id),
-      ).toEqual(link);
+      await controller.remove(mockRequestWithUser as any, { id: link.id });
+
+      expect(spy).toHaveBeenCalledWith(
+        link.id,
+        mockRequestWithUser.user.userId,
+      );
     });
   });
 });
