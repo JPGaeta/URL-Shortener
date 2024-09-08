@@ -101,6 +101,9 @@ describe('LinksService', () => {
       };
 
       jest.spyOn(prismaService.link, 'create').mockResolvedValue(link);
+      jest
+        .spyOn(prismaService.link, 'findFirst')
+        .mockImplementation(() => null);
 
       expect(await service.create(createLinkDto, user.id)).toEqual({
         ...link,
@@ -124,6 +127,9 @@ describe('LinksService', () => {
       };
 
       jest.spyOn(prismaService.link, 'create').mockResolvedValue(link);
+      jest
+        .spyOn(prismaService.link, 'findFirst')
+        .mockImplementation(() => null);
 
       expect(await service.create(createLinkDto, null)).toEqual({
         ...link,
