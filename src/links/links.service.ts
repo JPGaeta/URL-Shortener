@@ -102,12 +102,10 @@ export class LinksService {
       where: { id },
       data: { deletedAt: new Date() },
     });
-
-    return;
   }
 
   private async isOwner(userId: string, linkId: string) {
-    const link = await this.prismaService.link.findFirst({
+    const link = await this.prismaService.link.findUnique({
       where: { id: linkId },
     });
     return link?.userId === userId;
