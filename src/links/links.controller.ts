@@ -9,6 +9,7 @@ import {
   Req,
   Put,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import { CreateLinkDto } from './dto/create-link.dto';
@@ -32,6 +33,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { DeleteLinkParamsDto } from './dto/delete-link.dto';
+import { apiResponse } from '../utils/response.utils';
 
 @ApiTags('Links')
 @Controller('links')
@@ -51,7 +53,7 @@ export class LinksController {
   })
   @ApiCreatedResponse({ description: 'Return the URL created' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  @HttpCode(201)
+  @HttpCode(HttpStatus.CREATED)
   @Post('/create')
   async create(@Req() request: Request, @Body() createLinkDto: CreateLinkDto) {
     let user: TJwtToken | null = null;
@@ -70,7 +72,9 @@ export class LinksController {
 
     const responseURL = `${process.env.BASE_DOMAIN}/${linkCreated.url_short}`;
 
-    return { url: responseURL };
+    return apiResponse(HttpStatus.CREATED, { url: responseURL }, [
+      { message: 'URL created', property: 'url' },
+    ]);
   }
 
   @ApiBearerAuth()
@@ -83,13 +87,15 @@ export class LinksController {
   @ApiUnauthorizedResponse({
     description: 'Need to pass a valid bearer JWT token',
   })
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @Get('/user')
-  findByUser(@Req() request: Request) {
+  async findByUser(@Req() request: Request) {
     const user = request['user'] as TJwtToken;
 
-    return this.linksService.findByUser(user.userId);
+    const userLinks = await this.linksService.findByUser(user.userId);
+
+    return apiResponse(HttpStatus.OK, userLinks);
   }
 
   @ApiBearerAuth()
@@ -103,17 +109,25 @@ export class LinksController {
     description: "Tried to update a link that doesn't belong to user",
   })
   @ApiNotFoundResponse({ description: 'Link not found' })
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @Put(':id')
-  update(
+  async update(
     @Req() request: Request,
     @Param() params: UpdateLinkParamsDto,
     @Body() updateLinkDto: UpdateLinkDto,
   ) {
     const user = request['user'] as TJwtToken;
 
-    return this.linksService.update(params.id, user.userId, updateLinkDto);
+    const userUpdated = await this.linksService.update(
+      params.id,
+      user.userId,
+      updateLinkDto,
+    );
+
+    return apiResponse(HttpStatus.OK, userUpdated, [
+      { message: 'Link updated', property: 'link' },
+    ]);
   }
 
   @ApiBearerAuth()
@@ -127,12 +141,14 @@ export class LinksController {
     description: "Tried to delete a link that doesn't belong to user",
   })
   @ApiNotFoundResponse({ description: 'Link not found' })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Req() request: Request, @Param() params: DeleteLinkParamsDto) {
+  async remove(@Req() request: Request, @Param() params: DeleteLinkParamsDto) {
     const user = request['user'] as TJwtToken;
 
-    return this.linksService.remove(params.id, user.userId);
+    await this.linksService.remove(params.id, user.userId);
+
+    return apiResponse(HttpStatus.NO_CONTENT);
   }
 }

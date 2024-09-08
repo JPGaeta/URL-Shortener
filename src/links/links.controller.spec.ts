@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Link } from '@prisma/client';
 import { Request } from 'express';
 import { PrismaModule } from '../database/prisma.module';
+import { apiResponse } from '../utils/response.utils';
 
 const link: Link = {
   id: 'link1',
@@ -67,7 +68,13 @@ describe('LinksController', () => {
 
       expect(
         await controller.create(mockRequest as Request, createLinkDto),
-      ).toStrictEqual({ url: `${process.env.BASE_DOMAIN}/${link.url_short}` });
+      ).toEqual(
+        apiResponse(
+          201,
+          { url: `${process.env.BASE_DOMAIN}/${link.url_short}` },
+          [{ message: 'URL created', property: 'url' }],
+        ),
+      );
     });
 
     it('Should be return a new link without authentication', async () => {
@@ -84,7 +91,13 @@ describe('LinksController', () => {
 
       expect(
         await controller.create(mockRequest as Request, createLinkDto),
-      ).toStrictEqual({ url: `${process.env.BASE_DOMAIN}/${link.url_short}` });
+      ).toEqual(
+        apiResponse(
+          201,
+          { url: `${process.env.BASE_DOMAIN}/${link.url_short}` },
+          [{ message: 'URL created', property: 'url' }],
+        ),
+      );
     });
   });
 
@@ -94,7 +107,7 @@ describe('LinksController', () => {
 
       expect(
         await controller.findByUser(mockRequestWithUser as any),
-      ).toStrictEqual([link]);
+      ).toStrictEqual(apiResponse(200, [link]));
     });
 
     it('Should return an empty array when user does not have links', async () => {
@@ -102,7 +115,7 @@ describe('LinksController', () => {
 
       expect(
         await controller.findByUser(mockRequestWithUser as any),
-      ).toStrictEqual([]);
+      ).toStrictEqual(apiResponse(200, []));
     });
   });
 
@@ -120,7 +133,9 @@ describe('LinksController', () => {
           { id: link.id },
           updateLinkDto,
         ),
-      ).toEqual(link);
+      ).toStrictEqual(
+        apiResponse(200, link, [{ message: 'Link updated', property: 'link' }]),
+      );
     });
   });
 
