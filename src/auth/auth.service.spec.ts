@@ -90,7 +90,7 @@ describe('AuthService', () => {
   });
 
   describe('signUp', () => {
-    it('should return a user when registration is successful', async () => {
+    it('Should return a user when registration is successful', async () => {
       jest.spyOn(userService, 'create').mockResolvedValue(user);
 
       expect(await service.signUp(user.email, 'password')).toEqual({
@@ -100,6 +100,18 @@ describe('AuthService', () => {
         updatedAt: user.updatedAt,
         deletedAt: null,
       });
+    });
+
+    it('Should throw an error if user already exists', async () => {
+      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(user);
+
+      try {
+        await service.signUp(user.email, 'password');
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe('User already exists');
+      }
     });
   });
 });

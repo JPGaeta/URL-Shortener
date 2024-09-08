@@ -36,12 +36,17 @@ export class AuthService {
   }
 
   async signUp(email: string, password: string): Promise<User> {
-    const user = await this.userService.create({
+    const user = await this.userService.findOneByEmail(email);
+    if (user) {
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+    }
+
+    const userResponse = await this.userService.create({
       email,
       password,
     });
-    delete user.password;
+    delete userResponse.password;
 
-    return user;
+    return userResponse;
   }
 }
