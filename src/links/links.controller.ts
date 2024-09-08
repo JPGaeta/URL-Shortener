@@ -22,6 +22,7 @@ import { TJwtToken } from '../types/auth.types';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -40,10 +41,13 @@ export class LinksController {
     private readonly jwtService: JwtService,
   ) {}
 
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new link',
-    description:
-      'Create a new link, if you are logged in (with JWT), the link will be associated with your account',
+    description: `Create a new link. If you are logged in, the link will be associated with your account
+      
+      NOTE: This endpoint is documented with JWT authentication due to Swagger's limitations in supporting optional authentication.
+      Although the authentication is optional for this endpoint, it is mandatory for subsequent routes to access the data.`,
   })
   @ApiCreatedResponse({ description: 'Return the URL created' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
@@ -95,7 +99,7 @@ export class LinksController {
   })
   @ApiOkResponse({ description: 'Return the complete link' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  @ApiUnauthorizedResponse({
+  @ApiForbiddenResponse({
     description: "Tried to update a link that doesn't belong to user",
   })
   @ApiNotFoundResponse({ description: 'Link not found' })
@@ -119,11 +123,11 @@ export class LinksController {
   })
   @ApiNoContentResponse({ description: 'Sucess to delete user link' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  @ApiUnauthorizedResponse({
+  @ApiForbiddenResponse({
     description: "Tried to delete a link that doesn't belong to user",
   })
   @ApiNotFoundResponse({ description: 'Link not found' })
-  @HttpCode(200)
+  @HttpCode(204)
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Req() request: Request, @Param() params: DeleteLinkParamsDto) {
