@@ -27,12 +27,40 @@ export class LinksService {
     });
   }
 
+  async findLinkByShortUrl(shortUrl: string): Promise<Link | null> {
+    const link = await this.prismaService.link.findFirst({
+      where: { url_short: shortUrl },
+    });
+
+    if (!link) {
+      return null;
+    }
+
+    return link;
+  }
+
+  async incrementLinkClicks(id: string) {
+    await this.prismaService.link.update({
+      data: { clicks: { increment: 1 } },
+      where: { id },
+    });
+    return;
+  }
+
   async create(
     createLinkDto: CreateLinkDto,
     userId: string | null,
   ): Promise<Link> {
     const id: string = uuidv7();
-    const shortUrlCode: string = nanoid(6);
+    let shortUrlCode: string;
+    let hasLinkWithSameUrl: Link | null;
+
+    do {
+      shortUrlCode = nanoid(6);
+      hasLinkWithSameUrl = await this.prismaService.link.findFirst({
+        where: { url_short: shortUrlCode },
+      });
+    } while (hasLinkWithSameUrl);
 
     return this.prismaService.link.create({
       data: {
@@ -61,7 +89,7 @@ export class LinksService {
     return updatedLink;
   }
 
-  async remove(id: string, userId: string) {
+  async remove(id: string, userId: string): Promise<void> {
     if (!(await this.isOwner(userId, id))) {
       throw new UnauthorizedException();
     }
@@ -70,10 +98,12 @@ export class LinksService {
       throw new NotFoundException();
     }
 
-    return await this.prismaService.link.update({
+    await this.prismaService.link.update({
       where: { id },
       data: { deletedAt: new Date() },
     });
+
+    return;
   }
 
   private async isOwner(userId: string, linkId: string) {
