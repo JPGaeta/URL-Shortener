@@ -1,7 +1,5 @@
 # URL-Shortener
 
-# API Encurtadora de URLs
-
 Este projeto é uma API robusta e eficiente para encurtar URLs. A API fornece uma maneira rápida e segura de encurtar URLs longas, tornando-as mais gerenciáveis e compartilháveis.
 
 ## Tecnologias utilizadas
