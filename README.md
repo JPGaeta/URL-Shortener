@@ -1,13 +1,19 @@
 # URL-Shortener
 
+<p align="center">
+  <span>Português Brasileiro</span> |
+  <a href="./README_en.md">English</a>
+</p>
+
 Este projeto é uma API robusta e eficiente para encurtar URLs. A API fornece uma maneira rápida e segura de encurtar URLs longas, tornando-as mais gerenciáveis e compartilháveis.
 
 <p align="center">
-  <a href="#tecnologias-utilizadas">Tecnologias</a> •
-  <a href="#características-principais">Features</a> •
-  <a href="#formas-de-instalaçãoutilização-do-projeto">Instalação</a> •
-  <a href="#como-o-projeto-funciona">Funcionamento</a> •
-  <a href="#diferenciais-do-projeto">Diferenciais</a> 
+  <a href="#Tecnologias">Tecnologias</a> •
+  <a href="#Características Principais">Features</a> •
+  <a href="#Formas de Instalação/Utilização do Projeto">Instalação</a> •
+  <a href="#Como o projeto funciona">Funcionamento</a> •
+  <a href="#Diferenciais do Projeto">Diferenciais</a> 
+  
 </p>
 
 ## Tecnologias utilizadas
