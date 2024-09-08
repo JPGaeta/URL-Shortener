@@ -1,85 +1,127 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# URL-Shortener
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# API Encurtadora de URLs
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto é uma API robusta e eficiente para encurtar URLs. A API fornece uma maneira rápida e segura de encurtar URLs longas, tornando-as mais gerenciáveis e compartilháveis.
 
-## Description
+## Tecnologias utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- NestJS,
+- TypeScript
+- Express
+- Prisma
+- PostgreSQL
 
-## Project setup
+## Características Principais
 
-```bash
-$ yarn install
-```
+- **Cadastro de Usuários**: Permite que os usuários se registrem e mantenham suas próprias URLs encurtadas.
+- **Autenticação de Usuários com JWT**: Implementa a autenticação JWT para garantir a segurança e a integridade dos dados do usuário.
+- **Cadastro de URLs**: Os usuários podem encurtar qualquer URL, com ou sem estar autenticados. As URLs encurtadas são únicas e persistentes.
+- **Alteração do Destino da URL**: Os usuários têm a capacidade de alterar o destino de suas URLs encurtadas a qualquer momento.
+- **Deleção da URL**: As URLs encurtadas podem ser excluídas pelos usuários a qualquer momento, proporcionando controle total sobre suas URLs.
 
-## Compile and run the project
+Este projeto é perfeito para quem deseja um serviço de encurtamento de URL personalizado e seguro.
 
-```bash
-# development
-$ yarn run start
+## Formas de Instalação/Utilização do Projeto
 
-# watch mode
-$ yarn run start:dev
+### 1. Acessar o Link da API Hospedada na Cloud
 
-# production mode
-$ yarn run start:prod
-```
+Você pode acessar a API diretamente através do link abaixo:
 
-## Run tests
+[URL-Shortener-API](http://68.183.154.173:5000/)
 
-```bash
-# unit tests
-$ yarn run test
+> **Importante:** Este link será desativado em breve por motivos de segurança.
 
-# e2e tests
-$ yarn run test:e2e
+### 2. Utilizando Docker
 
-# test coverage
-$ yarn run test:cov
-```
+Para utilizar o Docker, siga os passos abaixo:
 
-## Resources
+1.  Crie o arquivo `docker.env` baseado no `docker.env.example`.
+2.  Execute o comando:
+    ```sh
+    docker compose build
+    ```
+3.  Depois do build, execute:
+    ```sh
+    docker compose up
+    ```
+    Isso irá gerar o banco de dados, construir o projeto e deixá-lo pronto para uso local.
 
-Check out a few resources that may come in handy when working with NestJS:
+### 3. Clonando o Repositório
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Para clonar o repositório e rodar o projeto localmente, siga os passos abaixo:
 
-## Support
+1.  Clone o repositório e crie o arquivo `.env` baseado no `.env.example`.
+2.  Certifique-se de ter o Node.js 20 e o Yarn instalados na sua máquina, além do PostgreSQL rodando localmente ou em cloud.
+3.  Instale as dependências:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    ```sh
+    yarn install
+    ```
 
-## Stay in touch
+4.  Gere os arquivos Prisma:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    ```sh
+    npx prisma generate
+    ```
 
-## License
+5.  Execute as migrações do Prisma:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+    ```sh
+    npx prisma migrate dev
+    ```
+
+    > **Nota:** Execute `npx prisma migrate deploy` em ambientes de produção.
+
+6.  Para rodar o projeto em desenvolvimento:
+
+    ```sh
+    yarn start:dev
+    ```
+
+    Para rodar o projeto em produção:
+
+    ```sh
+    yarn build
+    yarn start:prod
+    ```
+
+# Como o projeto funciona
+
+Este projeto possui uma documentação completa das rotas disponíveis na URL "/docs". Esta documentação inclui todos os parâmetros, corpos de solicitação e autenticações necessárias para cada rota.
+
+## Uso Sem Autenticação
+
+1.  **Criação de Link Curto**: Utilize a rota de criação de link curto, passando a URL destino desejada. Você receberá a URL encurtada como retorno.
+
+2.  **Redirecionamento**: Insira a URL encurtada retornada em seu navegador preferido para ser redirecionado para a URL destino.
+
+## Uso Com Autenticação
+
+1.  **Criação de Conta**: Utilize a rota de SignUp para criar sua conta.
+
+2.  **Login**: Faça login no sistema com as credenciais cadastradas para receber seu token de autenticação.
+
+3.  **Uso do Token**: Envie seu token no cabeçalho de autorização ("Authorization: Bearer {token}") nas rotas que requerem autenticação.
+
+4.  **Criação de Link Curto**: Quando criar um novo link curto enquanto autenticado, este link será automaticamente associado à sua conta.
+
+5.  **Visualização de Links Curtos**: Utilize a rota get para receber todos os links curtos que pertencem à sua conta.
+
+6.  **Atualização de URL Destino**: Utilize a rota de atualização para alterar a URL destino de um link curto existente.
+
+7.  **Exclusão de Link**: Se precisar excluir um link curto, utilize a rota de exclusão.
+
+# Diferenciais do Projeto
+
+Este projeto possui uma série de características que o destacam:
+
+- **Versões do NodeJS**: O projeto define e assegura quais versões do NodeJS são aceitas, garantindo a compatibilidade e a estabilidade.
+- **Git Tags para Versões de Release**: Utilizamos Git tags para definir versões de release, facilitando o rastreamento de mudanças e melhorias.
+- **Deploy em Cloud Provider**: O projeto é implantado em um provedor de cloud e o link é disponibilizado no README para acesso fácil.
+- **Docker-Compose**: Utilizamos Docker-Compose para facilitar a configuração e inicialização do ambiente completo localmente.
+- **Testes Unitários**: O projeto possui testes unitários para garantir que todas as partes do código funcionem como esperado.
+- **Documentação da API**: A API está completamente documentada com OPEN API ou Swagger, facilitando o entendimento e uso da API.
+- **Validação de Entrada**: Implementamos validação de entrada em todos os lugares necessários para garantir a segurança e a integridade dos dados.
+- **Hooks de Pré-Commit ou Pré-Push**: Configuramos hooks de pré-commit ou pré-push para garantir a qualidade do código antes de qualquer commit ou push.
+- **GitHub Actions**: Utilizamos GitHub Actions para automatizar a execução de lint e testes, garantindo a qualidade contínua do código.
