@@ -7,5 +7,6 @@ import { PrismaModule } from '../database/prisma.module';
   imports: [PrismaModule],
   controllers: [LinksController],
   providers: [LinksService],
+  exports: [LinksService],
 })
 export class LinksModule {}
