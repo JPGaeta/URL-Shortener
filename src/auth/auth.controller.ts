@@ -10,6 +10,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { apiResponse } from '../utils/response.utils';
 
 @ApiTags('Auth routes')
 @Controller('auth')
@@ -24,7 +25,17 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @Post('/signup')
   async signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.signUp(signUpDto.email, signUpDto.password);
+    const userLogged = await this.authService.signUp(
+      signUpDto.email,
+      signUpDto.password,
+    );
+
+    return apiResponse(HttpStatus.CREATED, userLogged, [
+      {
+        message: 'User created successfully',
+        property: 'user',
+      },
+    ]);
   }
 
   @ApiOperation({ summary: 'Sign in', description: 'Use can sign in on API' })
@@ -36,6 +47,15 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('/signin')
   async signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+    const token = await this.authService.signIn(
+      signInDto.email,
+      signInDto.password,
+    );
+    return apiResponse(HttpStatus.OK, token, [
+      {
+        message: 'User logged successfully',
+        property: 'User',
+      },
+    ]);
   }
 }

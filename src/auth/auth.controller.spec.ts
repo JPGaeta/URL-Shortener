@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { apiResponse } from '../utils/response.utils';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -37,9 +38,11 @@ describe('AuthController', () => {
       .spyOn(authService, 'signIn')
       .mockResolvedValue({ access_token: token });
 
-    expect(await controller.signIn(signInDto)).toStrictEqual({
-      access_token: token,
-    });
+    expect(await controller.signIn(signInDto)).toStrictEqual(
+      apiResponse(200, { access_token: token }, [
+        { message: 'User logged successfully', property: 'User' },
+      ]),
+    );
   });
 
   it('Should be return the user when sign up sucessfully', async () => {
@@ -55,6 +58,13 @@ describe('AuthController', () => {
 
     jest.spyOn(authService, 'signUp').mockResolvedValue(user);
 
-    expect(await controller.signUp(signInDto)).toBe(user);
+    expect(await controller.signUp(signInDto)).toStrictEqual(
+      apiResponse(201, user, [
+        {
+          message: 'User created successfully',
+          property: 'user',
+        },
+      ]),
+    );
   });
 });
