@@ -2,6 +2,14 @@
 
 Este projeto é uma API robusta e eficiente para encurtar URLs. A API fornece uma maneira rápida e segura de encurtar URLs longas, tornando-as mais gerenciáveis e compartilháveis.
 
+<p align="center">
+  <a href="#Tecnologias">Tecnologias</a> •
+  <a href="#Características Principais">Features</a> •
+  <a href="#Formas de Instalação/Utilização do Projeto">Instalação</a> •
+  <a href="#Como o projeto funciona">Funcionamento</a> •
+  <a href="#Diferenciais do Projeto">Diferenciais</a> 
+</p>
+
 ## Tecnologias utilizadas
 
 - NestJS,
@@ -83,6 +91,8 @@ Para clonar o repositório e rodar o projeto localmente, siga os passos abaixo:
     yarn build
     yarn start:prod
     ```
+
+> **Obs:** Execute `yarn test` para rodar os testes unitários.
 
 # Como o projeto funciona
 
