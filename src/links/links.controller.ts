@@ -21,6 +21,7 @@ import { jwtConstants } from '../auth/constants';
 import { Request } from 'express';
 import { TJwtToken } from '../types/auth.types';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -53,6 +54,9 @@ export class LinksController {
   })
   @ApiCreatedResponse({ description: 'Return the URL created' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiBadRequestResponse({
+    description: 'Must be a URL or URL must start with "https://"',
+  })
   @HttpCode(HttpStatus.CREATED)
   @Post('/create')
   async create(@Req() request: Request, @Body() createLinkDto: CreateLinkDto) {
