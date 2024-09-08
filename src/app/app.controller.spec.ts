@@ -27,7 +27,10 @@ describe('AppController', () => {
 
   describe('defaultRedirect', () => {
     it('Should return an object with url property set to /docs', async () => {
-      expect(await appController.defaultRedirect()).toEqual({ url: '/docs' });
+      expect(await appController.defaultRedirect()).toEqual({
+        message:
+          'Welcome to the URL shortener API. Please check the documentation at /docs',
+      });
     });
   });
 
