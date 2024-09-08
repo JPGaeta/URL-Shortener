@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import { CreateLinkDto } from './dto/create-link.dto';
-import { UpdateLinkDto } from './dto/update-link.dto';
+import { UpdateLinkDto, UpdateLinkParamsDto } from './dto/update-link.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { extractTokenFromHeader } from '../utils/auth.utils';
 import { JwtService } from '@nestjs/jwt';
@@ -30,6 +30,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { DeleteLinkParamsDto } from './dto/delete-link.dto';
 
 @ApiTags('Links')
 @Controller('links')
@@ -103,12 +104,12 @@ export class LinksController {
   @Put(':id')
   update(
     @Req() request: Request,
-    @Param('id') id: string,
+    @Param() params: UpdateLinkParamsDto,
     @Body() updateLinkDto: UpdateLinkDto,
   ) {
     const user = request['user'] as TJwtToken;
 
-    return this.linksService.update(id, user.userId, updateLinkDto);
+    return this.linksService.update(params.id, user.userId, updateLinkDto);
   }
 
   @ApiBearerAuth()
@@ -125,9 +126,9 @@ export class LinksController {
   @HttpCode(200)
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Req() request: Request, @Param('id') id: string) {
+  remove(@Req() request: Request, @Param() params: DeleteLinkParamsDto) {
     const user = request['user'] as TJwtToken;
 
-    return this.linksService.remove(id, user.userId);
+    return this.linksService.remove(params.id, user.userId);
   }
 }
