@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LinksService } from './links.service';
 import { PrismaService } from '../database/prisma.service';
 import { Link, User } from '@prisma/client';
+import { NotFoundException } from '@nestjs/common';
 
 const user: User = {
   id: '1',
@@ -94,6 +95,28 @@ describe('LinksService', () => {
     });
   });
 
+  describe('Find link by short url', () => {
+    it('Should find one link by short url', async () => {
+      jest.spyOn(prismaService.link, 'findFirst').mockResolvedValue(link);
+
+      expect(await service.findLinkByShortUrl(link.url_short)).toEqual(link);
+    });
+
+    it('Should return null when link does not exist', async () => {
+      jest.spyOn(prismaService.link, 'findFirst').mockResolvedValue(null);
+
+      expect(await service.findLinkByShortUrl('aNj9s')).toBeNull();
+    });
+  });
+
+  describe('Increment link clicks', () => {
+    it('Should increment link clicks', async () => {
+      jest.spyOn(prismaService.link, 'update').mockResolvedValue(link);
+
+      expect(await service.incrementLinkClicks(link.id)).toBeUndefined;
+    });
+  });
+
   describe('Create', () => {
     it('Should create a link linked with a user', async () => {
       const createLinkDto = {
@@ -182,11 +205,12 @@ describe('LinksService', () => {
         url: 'teste.com',
       };
 
-      jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(null);
+      jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(link);
+      jest.spyOn(service, 'findOne').mockResolvedValue(null);
 
-      await expect(
-        service.update('1', user.id, updateLinkDto),
-      ).rejects.toThrow();
+      await expect(service.update('1', user.id, updateLinkDto)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 
@@ -221,7 +245,12 @@ describe('LinksService', () => {
     it('Should throw an error if link does not exist', async () => {
       jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(null);
 
-      await expect(service.remove('1', user.id)).rejects.toThrow();
+      jest.spyOn(prismaService.link, 'findUnique').mockResolvedValue(link);
+      jest.spyOn(service, 'findOne').mockResolvedValue(null);
+
+      await expect(service.remove('1', user.id)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });
