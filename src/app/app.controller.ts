@@ -14,17 +14,19 @@ export class AppController {
   constructor(private readonly linksService: LinksService) {}
 
   @ApiExcludeEndpoint()
-  @Redirect('')
   @Get()
   async defaultRedirect() {
-    return { url: '/docs' };
+    return {
+      message:
+        'Welcome to the URL shortener API. Please check the documentation at /docs',
+    };
   }
 
   @ApiOperation({
     summary: 'Redirect to the destination URL',
     description: `Redirect to the destination URL based on the short URL and add a click to the link.
     
-    DISCLAIMER: This endpoint doesn't work if tested on Swagger UI, because it's a redirect endpoint.
+    NOTE: This endpoint doesn't work if tested on Swagger UI, because it's a redirect endpoint.
     Please try it out by the browser.
     `,
   })
