@@ -134,7 +134,7 @@ This project has several features that make it stand out:
 - **Cloud Provider Deployment**: The project is deployed on a cloud provider, and the link is provided in the README for easy access.
 - **Docker-Compose**: Docker-Compose is used to simplify the configuration and initialization of the complete local environment.
 - **Unit Testing**: The project includes unit tests to ensure all parts of the code work as expected.
-- **API Documentation**: The API is fully documented with OPEN API or Swagger, making it easy to understand and use.
+- **API Documentation**: The API is fully documented with Swagger, making it easy to understand and use.
 - **Input Validation**: Input validation is implemented wherever necessary to ensure data security and integrity.
 - **Pre-Commit or Pre-Push Hooks**: Pre-commit or pre-push hooks are set up to ensure code quality before any commits or pushes.
 - **GitHub Actions**: GitHub Actions are used to automate lint and test execution, ensuring continuous code quality.

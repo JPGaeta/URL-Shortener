@@ -135,7 +135,7 @@ Este projeto possui uma série de características que o destacam:
 - **Deploy em Cloud Provider**: O projeto é implantado em um provedor de cloud e o link é disponibilizado no README para acesso fácil.
 - **Docker-Compose**: Utilizamos Docker-Compose para facilitar a configuração e inicialização do ambiente completo localmente.
 - **Testes Unitários**: O projeto possui testes unitários para garantir que todas as partes do código funcionem como esperado.
-- **Documentação da API**: A API está completamente documentada com OPEN API ou Swagger, facilitando o entendimento e uso da API.
+- **Documentação da API**: A API está completamente documentada com Swagger, facilitando o entendimento e uso da API.
 - **Validação de Entrada**: Implementamos validação de entrada em todos os lugares necessários para garantir a segurança e a integridade dos dados.
 - **Hooks de Pré-Commit ou Pré-Push**: Configuramos hooks de pré-commit ou pré-push para garantir a qualidade do código antes de qualquer commit ou push.
 - **GitHub Actions**: Utilizamos GitHub Actions para automatizar a execução de lint e testes, garantindo a qualidade contínua do código.
